@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Geospatial Data in R and Beyond</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+    <link href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/css/style.css" rel="stylesheet">
+    <link href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/css/knitr.css" rel="stylesheet">
+
+
+
+    <link href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/assets/ico/apple-touch-icon-57-precomposed.png">
+
+   <script src="./Geospatial Data in R and Beyond_files/jquery.js"></script>
+    <script src="./Geospatial Data in R and Beyond_files/bootstrap.js"></script>
+    <script src="./Geospatial Data in R and Beyond_files/jquery.scianimator.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./Geospatial Data in R and Beyond_files/Geospatial Data in R and Beyond.html">Geospatial Data in R and Beyond</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="./Geospatial Data in R and Beyond_files/Geospatial Data in R and Beyond.html">Home</a></li>
+	      <li class="dropdown">
+		<a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#" class="dropdown-toggle" data-toggle="dropdown">Presentations<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+                  <li class="nav-header">PDFs</li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/talk1.pdf">Introduction to Spatial</a></li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/talk2.pdf">Off Roading with Spatial</a></li>
+                  <li class="nav-header">Annotated Web Pages</li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/introductionTalk.html">Introduction to Spatial</a></li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/introduction2Talk.html">Off Roading with Spatial</a></li>
+		</ul>
+	      </li>
+	      <li class="dropdown">
+		<a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#" class="dropdown-toggle" data-toggle="dropdown">Workshops<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+                  <li class="nav-header">Walkthroughs</li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/crime.html">Reading and Mapping Crime Data</a></li>
+		  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/plume.html">Plume Modelling Exercise</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">R source</li>
+                  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/crime.R">Crime Data</a></li>
+                  <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/static/plume.R">Pollution Model</a></li>
+		</ul>
+	      </li>
+              <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/data.html">Sample Data</a></li>
+              <li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/cheatsheet.html">Cheatsheet</a></li>
+            </ul>
+            <p class="navbar-text pull-right">Lancaster University</p>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <div class="span12">
+      
+        
+<img class="header" src="./Geospatial Data in R and Beyond_files/barry_r-medium.jpg">
+<h1>Overview</h1>
+<p>
+Spatial data is, quite literally, everwhere. In the past it was the
+private property of the GIS lab, but now everyone seems to be making
+tracks with the GPS device in their pocket. Map data now extends from
+the personal to the political, as agencies and governments make more
+global information available to the public.  In recent years R has
+become well equipped to deal with this spatial data deluge, with a
+number of packages dedicated to spatial data and spatial analyses.
+</p>
+<p>
+This tutorial will be composed of two presentations 
+and two workshop sessions to go through.
+</p>
+<h1>Prerequisites</h1>
+<p>
+A computer with R installed, and either all the spatial packages installed or
+an internet connection.
+</p>
+
+
+
+<h1>Contact</h1>
+<p>
+Barry Rowlingson is a Senior Research Associate in the CHICAS unit of the Faculty of Health and Medicine
+at Lancaster University, UK.
+</p>
+<dl class="dl-horizontal">
+<dt>email</dt><dd><a href="mailto:b.rowlingson@lancaster.ac.uk">b.rowlingson@lancaster.ac.uk</a></dd>
+<dt>blog</dt><dd><a href="http://geospaced.blogspot.com/">http://geospaced.blogspot.com</a></dd>
+<dt>web</dt><dd><a href="http://www.maths.lancs.ac.uk/~rowlings">http://www.maths.lancs.ac.uk/~rowlings</a></dd>
+<dt>twitter</dt><dd><a href="http://twitter.com/geospacedman">geospacedman</a></dd>
+</dl>
+
+
+
+        
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>© Barry Rowlingson 2012 | stock imagery from <a target="_blank" href="http://www.sxc.hu/">Stock.xchng</a></p>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="./Geospatial Data in R and Beyond_files/88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">UseR 2012 Spatial Data Workshop</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+ 
+
+<script type="text/javascript">
+$("span.functioncall").replaceWith(function(){return '<a target="_blank" href="http://rgm2.lab.nig.ac.jp/RGM2/search.php?query='+$(this).text()+'">'+$(this).text()+'</a>'})
+</script>
+
+
+
+
+  
+
+<div id="pdr-container"><div id="parlor_ticks-wrapper"><div id="parlor_toggle-underline" style="display: none;"></div></div><div id="pdr-flagbox-placeholder" class="pdr-flag-box-wrapper ui-draggable" style="position: relative; display: none;"><div id="pdr-flag-box" class="pdr-is-base-set">
+    <div id="pdr-form-box">
+      <ol id="pdr-group-buttons">
+        <!-- rivets: each-group --><li pdrv-on-click="toggleGroup" pdrv-custom-checked="group.isFlaggedTo" class="pdr-selector pdr-group-button pdr-selected" style="width: 33.3333333333333%;">
+          <span>DFE-S15</span>
+        </li><li pdrv-on-click="toggleGroup" pdrv-custom-checked="group.isFlaggedTo" class="pdr-selector pdr-group-button" style="width: 33.3333333333333%;">
+          <span>Does Education need online?</span>
+        </li><li pdrv-on-click="toggleGroup" pdrv-custom-checked="group.isFlaggedTo" class="pdr-selector pdr-group-button" style="width: 33.3333333333333%;">
+          <span>New Group</span>
+        </li>
+      </ol>
+      <!-- tnt tabs -->
+      <div id="pdr-tnt-container">
+        <!-- sentiments -->
+        <div id="pdr-sentiments-box">
+          <!-- sentiments list -->
+          <div id="pdr-thtset">
+  <ol id="pdr-sentiments" pdrv-class-pdr-sentiments-base=":isBaseSet" pdrv-class-pdr-sentiments-all=":isBaseSet | not" pdrv-on-mouseenter="areaMouseenter" pdrv-on-mouseleave="areaMouseleave" class=" pdr-sentiments-base">
+    <!-- rivets: each-tht --><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="B6B89E" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Got it</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Crystal clear.</div>
+		    	<div class="pdr-pstd pdr-tht">I grok.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="CC614E" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">???</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Come again?</div>
+		    	<div class="pdr-pstd pdr-tht">I missed something.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="71A57A" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Syntax!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">What does this mean?</div>
+		    	<div class="pdr-pstd pdr-tht">I am stuck on syntax.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="FBBBA1" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">e.g.?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">For instance...</div>
+		    	<div class="pdr-pstd pdr-tht">I would like examples.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="6E9D16" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">&gt;=?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Compared to what?</div>
+		    	<div class="pdr-pstd pdr-tht">I need a sense of scale.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="88AFA7" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">How?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How exactly?</div>
+		    	<div class="pdr-pstd pdr-tht">I would like a breakdown.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="EF3EB8" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Why?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Why is it...?</div>
+		    	<div class="pdr-pstd pdr-tht">I want the rationale.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="3CD8ED" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">Who knew?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Did not know that!</div>
+		    	<div class="pdr-pstd pdr-tht">I have been educated.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Understand pdr-top pdr-left" type="radio" pdr-value="64E672" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Apt!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Nice example!</div>
+		    	<div class="pdr-pstd pdr-tht">I appreciate good examples.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="FB7D15" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Yes</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Agree.</div>
+		    	<div class="pdr-pstd pdr-tht">I concur.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="DC961D" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">No</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Disagree.</div>
+		    	<div class="pdr-pstd pdr-tht">I beg to differ.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="420FA6" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Er...</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Maybe...</div>
+		    	<div class="pdr-pstd pdr-tht">I wonder.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="535CEF" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">And?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Beside the point.</div>
+		    	<div class="pdr-pstd pdr-tht">I question the relevance.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="86C044" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Or...</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">What about...</div>
+		    	<div class="pdr-pstd pdr-tht">I see an alternative.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="EE2A0D" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Reminds me...</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Makes me think of...</div>
+		    	<div class="pdr-pstd pdr-tht">I see a connection.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="FBEB2C" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">Truly?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Sure about that?</div>
+		    	<div class="pdr-pstd pdr-tht">I question this.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="FC9BD1" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Too easy</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Overly simplistic, no?</div>
+		    	<div class="pdr-pstd pdr-tht">I question the simplicity.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="755C2F" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Whoa</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">A bit much, no?</div>
+		    	<div class="pdr-pstd pdr-tht">I smell hyperbole.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-selected pdr-show-hint pdr-top pdr-left" type="radio" pdr-value="E608C0" style="z-index: 1;">
+ 	    	<div class="pdr-short pdr-tht">Huh.</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Food for thought...</div>
+		    	<div class="pdr-pstd pdr-tht">I am pondering.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="EBA5E5" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">O.K.</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">That's credible.</div>
+		    	<div class="pdr-pstd pdr-tht">I can believe it.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="32BC0B" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Uh-huh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Rings true.</div>
+		    	<div class="pdr-pstd pdr-tht">I see truth.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="E232D2" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Spot on</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Precisely!</div>
+		    	<div class="pdr-pstd pdr-tht">I appreciate perspicacity.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="5DB06F" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Touché</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Ouch!</div>
+		    	<div class="pdr-pstd pdr-tht">I recognize good aim.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="D7FC5B" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Well said</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Nicely put.</div>
+		    	<div class="pdr-pstd pdr-tht">I appreciate eloquence.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="DD9955" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Brave!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Making the hard decision.</div>
+		    	<div class="pdr-pstd pdr-tht">I encountered courage.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="25D323" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">Good point</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Incisive.</div>
+		    	<div class="pdr-pstd pdr-tht">I found insight.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="645ACE" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Fair point</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Well-considered.</div>
+		    	<div class="pdr-pstd pdr-tht">I recognize rigor.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="7419B9" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Proof?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Where's the pudding?</div>
+		    	<div class="pdr-pstd pdr-tht">I want evidence.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="1C7706" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Ay...</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Therein lies the rub.</div>
+		    	<div class="pdr-pstd pdr-tht">I found the catch-22.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="C3E01D" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">That's rich!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Pot calling kettle black!</div>
+		    	<div class="pdr-pstd pdr-tht">I smell hypocrisy.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="56057C" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Hollow</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Disingenuous.</div>
+		    	<div class="pdr-pstd pdr-tht">I detect insincerity.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="A0FE97" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Tricky!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Can't fool me!</div>
+		    	<div class="pdr-pstd pdr-tht">I recognize artifice.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="BFEA5A" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Clever!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Wouldn't'a thought of that!</div>
+		    	<div class="pdr-pstd pdr-tht">I appreciate shrewdness.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="689F98" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">As if!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Wishful thinking.</div>
+		    	<div class="pdr-pstd pdr-tht">I sense denial.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-Evaluate pdr-top pdr-left" type="radio" pdr-value="8CA7B2" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Finally!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Somebody finally said it!</div>
+		    	<div class="pdr-pstd pdr-tht">I am vindicated.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="01EE24" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Awesome</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Show some respect!</div>
+		    	<div class="pdr-pstd pdr-tht">I salute.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="6982C2" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">Nice</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Good stuff.</div>
+		    	<div class="pdr-pstd pdr-tht">I appreciate.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="F385BA" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ shrug }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Who cares?</div>
+		    	<div class="pdr-pstd pdr-tht">I am indifferent.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="34159B" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Duh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Of course!</div>
+		    	<div class="pdr-pstd pdr-tht">I take this for granted.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="744CFA" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ eyeroll }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How tedious.</div>
+		    	<div class="pdr-pstd pdr-tht">I am underwhelmed.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="D3F641" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Pfft!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Likely story!</div>
+		    	<div class="pdr-pstd pdr-tht">I am dismissive.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="EE5A3A" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ snort }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Quality.</div>
+		    	<div class="pdr-pstd pdr-tht">I enjoy the irony.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="973739" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">{ chuckle }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Heh.</div>
+		    	<div class="pdr-pstd pdr-tht">I am amused.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="7B1A63" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">HA</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Laugh out loud.</div>
+		    	<div class="pdr-pstd pdr-tht">I guffawed.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="586555" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Ooh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Curious and Mysterious!</div>
+		    	<div class="pdr-pstd pdr-tht">I am intrigued.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="D35A4A" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Wow</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Amazing!</div>
+		    	<div class="pdr-pstd pdr-tht">I marvel.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="4441ED" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ ! }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Fascinating</div>
+		    	<div class="pdr-pstd pdr-tht">I am rapt.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="69B8C8" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Deep</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Profound.</div>
+		    	<div class="pdr-pstd pdr-tht">I am contemplating existence.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="758445" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Doh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How embarrassing.</div>
+		    	<div class="pdr-pstd pdr-tht">I say whoops.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="2605EF" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Uh-oh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">That's not going to end well...</div>
+		    	<div class="pdr-pstd pdr-tht">I foresee misfortune.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="41198F" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ shake }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Disappointing...</div>
+		    	<div class="pdr-pstd pdr-tht">I am dismayed.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="E04D3F" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Ack!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Egads!</div>
+		    	<div class="pdr-pstd pdr-tht">I am taken aback.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="2B1534" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Ugh</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How repugnant.</div>
+		    	<div class="pdr-pstd pdr-tht">I am disgusted.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="FA46B5" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Grrr</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">So annoying.</div>
+		    	<div class="pdr-pstd pdr-tht">I am irritated.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="0DF31B" style="z-index: 0;">
+ 	    	<div class="pdr-short pdr-tht">Foul!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How infuriating!</div>
+		    	<div class="pdr-pstd pdr-tht">I am outraged.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="0DA1DC" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Woe</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">My heart sinks.</div>
+		    	<div class="pdr-pstd pdr-tht">I am heavy-hearted.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="7C9048" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ ... }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Where to begin?</div>
+		    	<div class="pdr-pstd pdr-tht">I am at a loss for words.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="487A46" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ shudder }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Stark.</div>
+		    	<div class="pdr-pstd pdr-tht">I am sobered.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="814C7F" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Weird</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">How strange.</div>
+		    	<div class="pdr-pstd pdr-tht">I am unsettled.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="BB33A2" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ squint }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Doesn't add up.</div>
+		    	<div class="pdr-pstd pdr-tht">I am suspicious.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="EF90C2" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">{ sigh }</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Sad but true.</div>
+		    	<div class="pdr-pstd pdr-tht">I am resigned.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="AF26B2" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">If only!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">...that were true!</div>
+		    	<div class="pdr-pstd pdr-tht">I am wistful.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="68FFD8" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Right?</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Me too!</div>
+		    	<div class="pdr-pstd pdr-tht">I empathize.</div>
+		    </div>
+    </li><li pdrv-on-click="selectTht" pdrv-on-mouseenter="thtMouseenter" pdrv-on-mouseleave="thtMouseleave" pdrv-class-present="tht.evalType | prefix pdr-genus-" pdrv-pdr-value="tht.id" pdrv-custom-checked=":model:selectedTht.id" pdrv-tht-highlighted=":highlightedTht.id" pdrv-show="tht.isVisible" class="pdr-selector pdr-genus-React pdr-top pdr-left" type="radio" pdr-value="E2F576" style="z-index: 0; display: none;">
+ 	    	<div class="pdr-short pdr-tht">Phew!</div>
+		    <div class="pdr-hint">
+		    	<div class="pdr-stmt pdr-tht">Thank goodness.</div>
+		    	<div class="pdr-pstd pdr-tht">I am relieved.</div>
+		    </div>
+    </li>
+  </ol>
+  <div id="pdr-toggle-sentiments" pdrv-on-click="toggleThtSet">MORE</div>
+</div>
+        </div>
+        <!-- themes -->
+        <div id="pdr-themes-box" class="pdr-theme-set-boxes ui-tabs ui-widget ui-widget-content ui-corner-all" style="display: none;">
+  <!-- Theme tab per group -->
+  <ol id="pdr-theme-set-tabs" class="pdr-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+    <!-- rivets: each-group --><li class="pdr-theme-set-tab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="pdr-theme-set-for-4FFDB79DFF7E4F13A6CCB16C60BFCCD1" aria-labelledby="ui-id-1" aria-selected="true" style="left: 0%; width: 33.3333333333333%;">
+      <a pdrv-on-click="selectGroup" pdrv-href="group.id | prefix #pdr-theme-set-for-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-theme-set-for-4FFDB79DFF7E4F13A6CCB16C60BFCCD1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">☷
+      </a>
+    </li><li class="pdr-theme-set-tab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="pdr-theme-set-for-66A16EAACDCA48F88666F5BD5C8F63D2" aria-labelledby="ui-id-2" aria-selected="false" style="display: none; left: 33.3333333333333%; width: 33.3333333333333%;">
+      <a pdrv-on-click="selectGroup" pdrv-href="group.id | prefix #pdr-theme-set-for-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-theme-set-for-66A16EAACDCA48F88666F5BD5C8F63D2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">☷
+      </a>
+    </li><li class="pdr-theme-set-tab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="pdr-theme-set-for-5A7D295668294E14B4C2D962E741B538" aria-labelledby="ui-id-3" aria-selected="false" style="display: none; left: 66.6666666666667%; width: 33.3333333333333%;">
+      <a pdrv-on-click="selectGroup" pdrv-href="group.id | prefix #pdr-theme-set-for-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-theme-set-for-5A7D295668294E14B4C2D962E741B538" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">☷
+      </a>
+    </li>
+  </ol>
+  <!-- rivets: each-group --><div pdrv-id="group.id | prefix pdr-theme-set-for-" class="pdr-theme-set-box ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs ui-widget ui-corner-all" id="pdr-theme-set-for-4FFDB79DFF7E4F13A6CCB16C60BFCCD1" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
+    <div class="pdr-theme-set-msg"></div>
+    <!-- Module tabs -->
+    <ol id="pdr-module-tabs" class="pdr-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+      <!-- rivets: each-module --><li class="pdr-module-tab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-0" aria-labelledby="ui-id-4" aria-selected="true">
+        <a pdrv-href="moduleId | prefix #pdr-module-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Tech</a>
+      </li><li class="pdr-module-tab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-1" aria-labelledby="ui-id-5" aria-selected="false">
+        <a pdrv-href="moduleId | prefix #pdr-module-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">Approach</a>
+      </li><li class="pdr-module-tab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-2" aria-labelledby="ui-id-6" aria-selected="false">
+        <a pdrv-href="moduleId | prefix #pdr-module-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-6">Skill Set</a>
+      </li><li class="pdr-module-tab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-3" aria-labelledby="ui-id-7" aria-selected="false">
+        <a pdrv-href="moduleId | prefix #pdr-module-" href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html#pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-7">Stage</a>
+      </li>
+    </ol>
+    <!-- rivets: each-module --><ol pdrv-id="moduleId | prefix pdr-module-" class="pdr-module-box ui-tabs-panel ui-widget-content ui-corner-bottom" id="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-0" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false">
+      <!-- rivets: each-theme --><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Scale">
+        <div class="pdr-theme">Scale</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Reach">
+        <div class="pdr-theme">Reach</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Persistence">
+        <div class="pdr-theme">Persistence</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li>
+    </ol><ol pdrv-id="moduleId | prefix pdr-module-" class="pdr-module-box ui-tabs-panel ui-widget-content ui-corner-bottom" id="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-1" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <!-- rivets: each-theme --><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Brain Science">
+        <div class="pdr-theme">Brain Science</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Psychology">
+        <div class="pdr-theme">Psychology</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Experiential">
+        <div class="pdr-theme">Experiential</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Project">
+        <div class="pdr-theme">Project</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Inquiry">
+        <div class="pdr-theme">Inquiry</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Gamification">
+        <div class="pdr-theme">Gamification</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Adaptive">
+        <div class="pdr-theme">Adaptive</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Flip">
+        <div class="pdr-theme">Flip</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li>
+    </ol><ol pdrv-id="moduleId | prefix pdr-module-" class="pdr-module-box ui-tabs-panel ui-widget-content ui-corner-bottom" id="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-2" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <!-- rivets: each-theme --><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Vocational">
+        <div class="pdr-theme">Vocational</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Emotional">
+        <div class="pdr-theme">Emotional</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Social/Cultural">
+        <div class="pdr-theme">Social/Cultural</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Collaboration">
+        <div class="pdr-theme">Collaboration</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Higher-order Lit.">
+        <div class="pdr-theme">Higher-order Lit.</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Creativity">
+        <div class="pdr-theme">Creativity</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li>
+    </ol><ol pdrv-id="moduleId | prefix pdr-module-" class="pdr-module-box ui-tabs-panel ui-widget-content ui-corner-bottom" id="pdr-module-4FFDB79DFF7E4F13A6CCB16C60BFCCD1-3" aria-labelledby="ui-id-7" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+      <!-- rivets: each-theme --><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Knowledge">
+        <div class="pdr-theme">Knowledge</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Comprehension">
+        <div class="pdr-theme">Comprehension</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Application">
+        <div class="pdr-theme">Application</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Analysis">
+        <div class="pdr-theme">Analysis</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Evaluation">
+        <div class="pdr-theme">Evaluation</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li><li pdrv-pdr-value="theme" class="pdr-selector pdr-theme-row" pdr-value="Synthesis">
+        <div class="pdr-theme">Synthesis</div>
+        <div pdrv-on-click="toggleTheme" class="pdr-flag-button pdr-yes-no">APPLY</div>
+      </li>
+    </ol>
+  </div><div pdrv-id="group.id | prefix pdr-theme-set-for-" class="pdr-theme-set-box ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs ui-widget ui-corner-all" id="pdr-theme-set-for-66A16EAACDCA48F88666F5BD5C8F63D2" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <div class="pdr-theme-set-msg">This group has no themes...</div>
+    <!-- Module tabs -->
+    <ol id="pdr-module-tabs" class="pdr-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+      <!-- rivets: each-module -->
+    </ol>
+    <!-- rivets: each-module -->
+  </div><div pdrv-id="group.id | prefix pdr-theme-set-for-" class="pdr-theme-set-box ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs ui-widget ui-corner-all" id="pdr-theme-set-for-5A7D295668294E14B4C2D962E741B538" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+    <div class="pdr-theme-set-msg">This group has no themes...</div>
+    <!-- Module tabs -->
+    <ol id="pdr-module-tabs" class="pdr-tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+      <!-- rivets: each-module -->
+    </ol>
+    <!-- rivets: each-module -->
+  </div>
+</div>
+      </div>
+      <div id="pdr-toggle-themes">☷</div>
+      <!-- Elaboration box -->
+      <div id="pdr-elaboration">
+	<div pdrv-on-click="toggleElaboration" class="pdr-edit">✍</div>
+	<textarea placeholder="Elaborate with up to 250 characters..." maxlength="250" style="display: none;" pdrv-textarea=":model:note"></textarea>
+</div>
+
+    </div>
+    <div id="pdr-submit-buttons">
+      <button id="pdr-cancel-button" class="pdr-flag-button" pdrv-on-click="cancel">Cancel</button>
+      <button id="pdr-submit-button" class="pdr-flag-button" pdrv-on-click="submit">Submit</button>
+    </div>
+</div></div><div id="parlor_unfound-flags" style="display: none;">
+  <div class="parlor_unfound-flags-text parlor_unfound-flags-init">
+    <div class="parlor_unfound-flags-feedback"></div>
+    <div class="parlor_curly-bracket">{</div>
+    <div id="parlor_unfound-msg">There are more responses<br>(not on this page)...
+      <div id="parlor_open-close-arrow">«</div>
+    </div>
+    <div class="parlor_curly-bracket">}</div>
+  </div>
+  <div id="parlor_unfound-container"></div>
+</div><div id="parlor_zoom-panel" class="ui-draggable" style="position: relative;"><div id="parlor_zoom-panel-close">CLOSE</div></div></div></body></html>
